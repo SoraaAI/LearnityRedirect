@@ -2,41 +2,25 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Learnity App Redirect</title>
+  <title>Learnity Redirect</title>
   <script>
-    const ngrokURL = "https://932aa5caaf6f.ngrok-free.app";
+    const ngrokURL = "https://932aa5caaf6f.ngrok-free.app/";
 
-    async function checkServer() {
-      try {
-        const res = await fetch(ngrokURL, { method: "HEAD", mode: "no-cors" });
-        showOnline();
-      } catch {
-        showOffline();
-      }
+    if (ngrokURL && ngrokURL.startsWith("http")) {
+      window.location.href = ngrokURL;
+    } else {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.innerHTML = `
+          <div style="text-align:center; margin-top:20%;">
+            <h1>⚠️ Server sedang offline</h1>
+            <p>Coba lagi nanti ya 🙏</p>
+          </div>
+        `;
+      });
     }
-
-    function showOnline() {
-      document.body.innerHTML = `
-        <div style="text-align:center; margin-top:20%;">
-          <h1>✅ Server Online</h1>
-          <p><a href="${ngrokURL}" target="_blank">Klik disini untuk buka aplikasi</a></p>
-        </div>
-      `;
-    }
-
-    function showOffline() {
-      document.body.innerHTML = `
-        <div style="text-align:center; margin-top:20%;">
-          <h1>⚠️ Server sedang offline</h1>
-          <p>Coba lagi nanti ya 🙏</p>
-        </div>
-      `;
-    }
-
-    document.addEventListener("DOMContentLoaded", checkServer);
   </script>
 </head>
 <body>
-  <p>Checking server status...</p>
+  <p>Redirecting...</p>
 </body>
 </html>
